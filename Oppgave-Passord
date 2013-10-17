@@ -1,0 +1,79 @@
+-------------------------------------------FORM 1----------------------------
+Public Class fPas
+    Public nr As Integer = 4
+    Public test(nr) As String
+    Public svar(0 To 4) As Integer
+    Public passord1 As String = "andri1"
+
+    Private Sub cmdLogginn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLogginn.Click
+
+        test(0) = "Oppgave nr. 1: 10 + 8 "
+        test(1) = "Oppgave nr. 2: 1 + 4 "
+        test(2) = "Oppgave nr. 3: 5 + 2 "
+        test(3) = "Oppgave nr. 4: 23 + 7 "
+        test(4) = "Oppgave nr. 5: 2 + 3 "
+
+
+        svar(0) = "18"
+        svar(1) = "5"
+        svar(2) = "7"
+        svar(3) = "30"
+        svar(4) = "5"
+
+
+        If txtPassord.Text <> passord1 Then
+            MsgBox("Feil Passord", , "Feil")
+            txtPassord.Focus()
+            txtPassord.SelectAll()
+        Else
+            Regnetest.Show()
+            Me.Hide()
+        End If
+
+        If IsNumeric(txtPassord.Text) Then
+            MsgBox("Passord må ha text og tall", , "Feil")
+            txtPassord.Focus()
+            txtPassord.SelectAll()
+        End If
+
+
+    End Sub
+End Class
+
+-------------------------------------------FORM 2----------------------------
+
+Public Class Regnetest
+    Dim i As Integer
+    Dim forsok As Integer = 3
+    Dim rett As Integer = 1
+    Private Sub Regnetest_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        fPas.Close()
+
+    End Sub
+
+    Private Sub btnStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStart.Click
+
+        txtOppgave.Text = fPas.test(0)
+        lblAntallfor.Text = forsok.ToString
+        lblAntallre.Visible = True
+        lblAntallfor.Visible = True
+        Label3.Visible = True
+        Label4.Visible = True
+        txtOppgave.Visible = True
+        txtSvar.Visible = True
+        btnSvar.Visible = True
+
+        
+    End Sub
+
+    Private Sub btnSvar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSvar.Click
+        
+            If fPas.svar(0).ToString = txtSvar.Text Or fPas.svar(1).ToString = txtSvar.Text Or fPas.svar(2).ToString = txtSvar.Text Or fPas.svar(3).ToString = txtSvar.Text Or fPas.svar(4).ToString = txtSvar.Text Then
+                lblAntallre.Text = lblAntallre.Text + rett.ToString
+            Else
+                MsgBox("Du har svart feil")
+                lblAntallfor.Text = forsok.ToString - 1
+            End If
+
+    End Sub
+End Class
