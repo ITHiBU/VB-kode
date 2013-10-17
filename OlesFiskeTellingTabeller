@@ -1,0 +1,58 @@
+Public Class FrmFiskesalg
+
+    Dim strProdukter() As String = {"laks", "flyndre", "ørret"} ' Lager array for fiskenavn
+    Dim intPris() As Integer = {199, 159, 169} ' Lager array for priser
+    Dim intKg As Integer ' Lager variabel for antall kg
+    Dim intBelop As Integer ' Lager variabel for totalprisen pr vare
+    Dim strSearch As String ' lager variabel for søkeord
+
+    Dim intTotalSum As Integer 'Lager variabel for
+
+    Dim ArrayListResultat As New ArrayList() ' Lager list array for resultater
+  
+
+    Private Sub LblVelkommen_Click(sender As Object, e As EventArgs) Handles LblVelkommen.Click
+
+    End Sub
+
+    Private Sub BtnBeregn_Click(sender As Object, e As EventArgs) Handles BtnBeregn.Click
+
+        strSearch = TxtFiskenavn.Text ' setter strSearch til txtfiksenavn
+        strSearch = strSearch.ToLower ' setter søkestringen til lowercase
+
+        For Each Str As String In strProdukter ' 
+            If Str.Contains(strSearch) Then
+
+                intKg = Convert.ToInt32(TxtKg.Text) ' konverterer txtkg til integer og legger det i varabel intKg
+                intBelop = intKg * intPris(Str.IndexOf(strSearch)) ' setter intbeløp til beløpet på fisken * antall kilo (intPris)
+                LblPrisUT.Text = intPris(Str.IndexOf(strSearch)) ' viser prisen pr kg på lblprisUT
+                LblBelopUT.Text = intBelop.ToString ' viser prisen på fisk * antall kilo til lblBelopUT
+
+                intTotalSum = intBelop + intBelop
+
+
+                ArrayListResultat.Add(strSearch & " KG: " & intKg & " Total beløp: " & intBelop) ' Legger produkter til i Arraylist
+
+            End If
+        Next
+
+
+    End Sub
+
+    Private Sub FrmFiskesalg_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LstBoxOversikt.Visible = False ' setter listboxen til false ved formload
+
+    End Sub
+
+    Private Sub BtnOversikt_Click(sender As Object, e As EventArgs) Handles BtnOversikt.Click
+        LstBoxOversikt.Visible = True
+        LstBoxOversikt.Items.Clear()
+        Dim str As String
+        For Each str In ArrayListResultat
+            'Console.WriteLine(str)
+            LstBoxOversikt.Items.Add(str)
+        Next
+        LstBoxOversikt.Items.Add("Solgt for totalt :" & intTotalSum)
+
+    End Sub
+End Class
